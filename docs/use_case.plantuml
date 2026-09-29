@@ -1,0 +1,87 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+' Определение актеров
+actor "Пользователь" as User
+actor "Администратор\nкинотеатра" as AdminCinema
+actor "Администратор\nсистемы" as AdminSystem
+
+' Наследование актеров
+User <|-- AdminCinema
+AdminCinema <|-- AdminSystem
+
+rectangle "Система кинотеатра" {
+    ' Прецеденты Пользователя
+    usecase "Просмотр\nрасписания\nсеансов" as UC_ViewSchedule
+    usecase "Выбрать\nфильтрацию\n_child" as UC_SelectFilter
+    usecase "На конкретную\nдату" as UC_FilterDate
+    usecase "На конкретный\nфильм" as UC_FilterMovie
+    usecase "В конкретном\nкинотеатре" as UC_FilterCinema
+    
+    usecase "Выбрать сеанс\nи просмотреть\nинформацию" as UC_SelectSession
+    usecase "Перейти к\nпокупке билета" as UC_BuyTicket
+
+    ' Прецеденты Администратора кинотеатра (Составление расписания)
+    usecase "Составление\nрасписания\nсеансов" as UC_ManageSchedule
+    
+    usecase "Удаление сеанса" as UC_DeleteSession
+    usecase "Выбор дня" as UC_DelDay
+    usecase "Выбор сеанса" as UC_DelSessionSelect
+    usecase "Подтверждение" as UC_DelConfirm
+    
+    usecase "Добавление\nсеанса" as UC_AddSession
+    usecase "Выбор дня" as UC_AddDay
+    usecase "Ввод данных о сеансе\n(фильм, время начала,\nцена билета)" as UC_AddData
+    usecase "Подтверждение" as UC_AddConfirm
+
+    ' Остальные прецеденты Администратора кинотеатра
+    usecase "Добавление\nфильма в прокат" as UC_AddMovie
+    usecase "Ввод данных\nфильма" as UC_MovieData
+    usecase "Подтверждение" as UC_MovieConfirm
+
+    usecase "Удаление\nфильма из\nпроката" as UC_DeleteMovie
+    usecase "Выбор фильма" as UC_SelectMovieDel
+    usecase "Подтверждение" as UC_MovieDelConfirm
+
+    usecase "Редактирование\nинформации о\nкинотеатре" as UC_EditCinema
+
+    ' Прецедент Администратора системы
+    usecase "Регистрация\nкинотеатров и их\nадминистраторов" as UC_RegisterCinema
+}
+
+' Связи Пользователя
+User --> UC_ViewSchedule
+UC_ViewSchedule ..> UC_SelectFilter
+UC_SelectFilter <.. UC_FilterDate : <<extend>>
+UC_SelectFilter <.. UC_FilterMovie : <<extend>>
+UC_SelectFilter <.. UC_FilterCinema : <<extend>>
+UC_ViewSchedule --> UC_SelectSession
+UC_SelectSession --> UC_BuyTicket
+
+' Связи Администратора кинотеатра
+AdminCinema --> UC_ManageSchedule
+UC_ManageSchedule --> UC_DeleteSession
+UC_DeleteSession --> UC_DelDay
+UC_DelDay --> UC_DelSessionSelect
+UC_DelSessionSelect --> UC_DelConfirm
+
+UC_ManageSchedule --> UC_AddSession
+UC_AddSession --> UC_AddDay
+UC_AddDay --> UC_AddData
+UC_AddData --> UC_AddConfirm
+
+AdminCinema --> UC_AddMovie
+UC_AddMovie --> UC_MovieData
+UC_MovieData --> UC_MovieConfirm
+
+AdminCinema --> UC_DeleteMovie
+UC_DeleteMovie --> UC_SelectMovieDel
+UC_SelectMovieDel --> UC_MovieDelConfirm
+
+AdminCinema --> UC_EditCinema
+
+' Связи Администратора системы
+AdminSystem --> UC_RegisterCinema
+
+@enduml
