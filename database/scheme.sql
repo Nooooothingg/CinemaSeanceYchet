@@ -63,4 +63,4 @@ CREATE TABLE Schedule (
 );
 INSERT INTO Schedule (date, time, film_name, Cinema_ID, admin_ID)
 VALUES
-    ('any day', 'any time', 'asdggkggh', 1, 2);
+    ('any day', 'any time', 'Бесславные ублюдки', 1, 2);
