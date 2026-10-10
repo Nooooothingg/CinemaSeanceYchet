@@ -1,8 +1,10 @@
 PRAGMA foreign_keys = ON;
 
-DROP TABLE IF EXISTS Users;
-DROP TABLE IF EXISTS Cinema;
+
 DROP TABLE IF EXISTS Schedule;
+DROP TABLE IF EXISTS Cinema;
+DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS UserRole;
 
 
 CREATE TABLE UserRole (
@@ -41,6 +43,10 @@ CREATE TABLE Cinema (
     link         TEXT
 );
 
+INSERT INTO Cinema (name, description, link)
+VALUES
+    ('Пыльная радуга', 'Лучший кинотеатр forever', 'https://music.yandex.ru/artist/3033108');
+
 CREATE TABLE Schedule (
     Schedule_ID  INTEGER PRIMARY KEY AUTOINCREMENT,
     date         TEXT NOT NULL,
@@ -55,8 +61,6 @@ CREATE TABLE Schedule (
         ON UPDATE CASCADE
         ON DELETE RESTRICT
 );
-
-CREATE INDEX idx_user_role      ON Users(UserRole_ID);
-CREATE INDEX idx_schedule_cinema ON Schedule(Cinema_ID);
-CREATE INDEX idx_schedule_admin  ON Schedule(admin_ID);
-CREATE INDEX idx_schedule_dt     ON Schedule(date, time);
+INSERT INTO Schedule (date, time, film_name, Cinema_ID, admin_ID)
+VALUES
+    ('any day', 'any time', 'asdggkggh', 1, 2);
