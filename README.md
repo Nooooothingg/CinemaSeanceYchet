@@ -33,10 +33,10 @@
 *   **Способ реализации:** Консольное приложение
 
 ### Добавление администратора
-(docs/AddAdmin.jpg)
+![](docs/AddAdmin.jpg)
 
 ### Добавление сеанса
-(docs/AddSeance.jpg)
+![](docs/AddSeance.jpg)
 
 ### ERD
-(docs/ERD.jpg)
+![](docs/ERD.jpg)
