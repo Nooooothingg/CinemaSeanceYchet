@@ -47,11 +47,20 @@ INSERT INTO Cinema (name, description, link)
 VALUES
     ('Пыльная радуга', 'Лучший кинотеатр forever', 'https://music.yandex.ru/artist/3033108');
 
+CREATE TABLE Film (
+    Film_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Film_name TEXT NOT NULL,
+    Film_descr TEXT,
+    Film_time INTEGER NOT NULL
+);
+INSERT INTO Film (Film_name, Film_descr, Film_time)
+VALUES
+    ('Бесславные ублюдки', 'Хороший фильм, добрый, поучительный', 153);
+
 CREATE TABLE Schedule (
     Schedule_ID  INTEGER PRIMARY KEY AUTOINCREMENT,
-    date         TEXT NOT NULL,
-    time         TEXT NOT NULL,
-    film_name    TEXT NOT NULL,
+    date_time DATETIME NOT NULL,
+    Film_ID    INTEGER NOT NULL,
     Cinema_ID    INTEGER NOT NULL,
     admin_ID     INTEGER NOT NULL,
     FOREIGN KEY (Cinema_ID) REFERENCES Cinema(Cinema_ID)
@@ -60,7 +69,10 @@ CREATE TABLE Schedule (
     FOREIGN KEY (admin_ID) REFERENCES Users(User_ID)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
+    FOREIGN KEY (Film_ID) REFERENCES Film(Film_ID)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
-INSERT INTO Schedule (date, time, film_name, Cinema_ID, admin_ID)
+INSERT INTO Schedule (date_time, Film_ID, Cinema_ID, admin_ID)
 VALUES
-    ('any day', 'any time', 'Бесславные ублюдки', 1, 2);
+    ('2026-10-15 14:30:00', 1, 1, 2);
