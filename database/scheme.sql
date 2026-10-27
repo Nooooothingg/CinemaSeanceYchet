@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS Schedule;
 DROP TABLE IF EXISTS Cinema;
 DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS UserRole;
-
+DROP TABLE IF EXISTS Film;
 
 CREATE TABLE UserRole (
     UserRole_ID  INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -22,7 +22,7 @@ VALUES
 CREATE TABLE Users (
     User_ID       INTEGER PRIMARY KEY AUTOINCREMENT,
     UserRole_ID   INTEGER NOT NULL,
-    Imya     TEXT NOT NULL,
+    username     TEXT NOT NULL,
     login         TEXT NOT NULL UNIQUE,
     passwordHash  TEXT NOT NULL,
     FOREIGN KEY (UserRole_ID) REFERENCES UserRole(UserRole_ID)
@@ -31,7 +31,7 @@ CREATE TABLE Users (
 );
 
 
-INSERT INTO Users (UserRole_ID, Imya, login, passwordHash)
+INSERT INTO Users (UserRole_ID, username, login, passwordHash)
 VALUES
     (1, 'Semen',     'admin',       'hash1'),
     (2, 'Dana',      'cin_admin',   'hash2'),

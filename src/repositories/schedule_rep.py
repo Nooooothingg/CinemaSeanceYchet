@@ -42,7 +42,7 @@ def get_all() -> list[Schedule]:
     cur.execute("""
         SELECT 
             s.Schedule_ID, s.date_time, s.Film_ID, s.Cinema_ID, s.admin_id,
-            f.film_name, c.cinemaname
+            f.film_name, c.name
         FROM Schedule s
         JOIN Film f ON s.Film_ID = f.Film_ID
         JOIN Cinema c ON s.Cinema_ID = c.Cinema_ID
@@ -59,7 +59,7 @@ def get_by_id(schedule_id: int) -> Schedule | None:
     cur.execute("""
         SELECT 
             s.Schedule_ID, s.date_time, s.Film_ID, s.Cinema_ID, s.admin_id,
-            f.film_name, c.cinemaname
+            f.film_name, c.name
         FROM Schedule s
         JOIN Film f ON s.Film_ID = f.Film_ID
         JOIN Cinema c ON s.Cinema_ID = c.Cinema_ID
