@@ -30,6 +30,7 @@ CREATE TABLE Users (
         ON DELETE RESTRICT
 );
 
+
 INSERT INTO Users (UserRole_ID, Imya, login, passwordHash)
 VALUES
     (1, 'Semen',     'admin',       'hash1'),
@@ -42,6 +43,7 @@ CREATE TABLE Cinema (
     description  TEXT,
     link         TEXT
 );
+
 
 INSERT INTO Cinema (name, description, link)
 VALUES
