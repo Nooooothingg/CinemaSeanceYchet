@@ -1,2 +1,4 @@
 .idea/
 database/schedule.db
+.venv1/
+.venv/

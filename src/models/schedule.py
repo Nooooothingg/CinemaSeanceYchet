@@ -4,7 +4,10 @@ import datetime
 class Schedule:
     schedule_id: int
     date_time: datetime.datetime
-    film_name: str
+    film_id: int
     cinema_id: int
     admin_id: int
+
+    film_name: str | None = None
+    cinema_name: str | None = None
 
