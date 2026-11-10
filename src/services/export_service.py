@@ -24,10 +24,7 @@ def _ensure_out_dir() -> None:
 
 
 def _fetch_schedule_data() -> list[dict[str, Any]]:
-    """
-    Извлекает все сеансы с связанными данными (фильм, кинотеатр, администратор)
-    через JOIN-запрос. Возвращает список вложенных словарей.
-    """
+
     conn = get_conn()
     cur = conn.cursor()
     cur.execute("""
@@ -81,9 +78,7 @@ def _fetch_schedule_data() -> list[dict[str, Any]]:
 
 
 def _fetch_schedule_flat() -> list[dict[str, Any]]:
-    """
-    Плоская структура для CSV: все связанные поля в одной строке.
-    """
+
     conn = get_conn()
     cur = conn.cursor()
     cur.execute("""
