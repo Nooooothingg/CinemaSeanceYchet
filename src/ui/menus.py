@@ -1,4 +1,4 @@
-from services import film_service, schedule_service, auth
+from services import film_service, schedule_service, auth, export_service
 
 
 def admin_menu(user):
@@ -10,6 +10,7 @@ def admin_menu(user):
         print("4. Посмотреть все сеансы")
         if user.userrole_id == 1:
             print("5. Зарегистрировать администратора кинотеатра")
+            print("6. Экспортировать расписание (JSON, CSV, XML, YAML)")
         print("0. Выйти из аккаунта")
         choice = input("Выберите действие: ")
 
@@ -64,6 +65,12 @@ def admin_menu(user):
             try:
                 auth.register_cinema_admin(username, login_value, password_value)
                 print("\nАдминистратор кинотеатра успешно зарегистрирован!")
+            except Exception as e:
+                print(f"\n[ОШИБКА] {e}")
+
+        elif choice == "6" and user.userrole_id == 1:
+            try:
+                export_service.export_all()
             except Exception as e:
                 print(f"\n[ОШИБКА] {e}")
 

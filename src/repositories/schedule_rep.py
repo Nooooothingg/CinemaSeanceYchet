@@ -1,4 +1,4 @@
-from database.database import get_conn
+from src.database.database import get_conn
 from src.models.schedule import Schedule
 import datetime
 

@@ -1,4 +1,4 @@
-from database.database import get_conn
+from src.database.database import get_conn
 from src.models.user import User
 
 def _map(row) -> User:

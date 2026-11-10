@@ -1,4 +1,4 @@
-from database.database import get_conn
+from src.database.database import get_conn
 from src.models.film import Film
 
 def _map(row) -> Film:
