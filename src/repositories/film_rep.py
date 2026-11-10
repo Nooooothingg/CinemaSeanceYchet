@@ -25,7 +25,7 @@ def get_all() -> list[Film]:
 def get_by_id(film_id: int) -> Film | None:
     conn = get_conn()
     cur = conn.cursor()
-    cur.execute("SELECT Film_ID, Film_name, Film_descr, Film_time FROM Film WHERE Film_ID = ?", (film_id,))
+    cur.execute("SELECT Film_ID, Film_name, Film_time, Film_descr FROM Film WHERE Film_ID = ?", (film_id,))
     row = cur.fetchone()
     conn.close()
     return _map(row) if row else None

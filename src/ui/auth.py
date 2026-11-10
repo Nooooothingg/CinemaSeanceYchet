@@ -16,14 +16,17 @@ def login():
 
 
 def register():
-    print("\n--- Регистрация клиента ---")
+    print("\n--- Регистрация ---")
     username = input("Ваше имя: ")
     login_value = input("Придумайте логин: ")
     password_value = input("Придумайте пароль: ")
+    secret_word = input("Секретное слово для регистрации администратора (или оставьте пустым для клиента): ")
 
     try:
-        # По умолчанию регистрируем клиента (ID роли 2)
-        auth.register(username, login_value, password_value, role_id=2)
-        print("\nРегистрация прошла успешно! Теперь вы можете войти.")
+        role_id = auth.register_with_secret(username, login_value, password_value, secret_word)
+        if role_id == auth.SYSADMIN_ROLE_ID:
+            print("\nРегистрация прошла успешно! Вы зарегистрированы как системный администратор.")
+        else:
+            print("\nРегистрация прошла успешно! Вы зарегистрированы как клиент. Теперь вы можете войти.")
     except Exception as e:
         print(f"\n[ОШИБКА] {e}")

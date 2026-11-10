@@ -10,4 +10,6 @@ class Schedule:
 
     film_name: str | None = None
     cinema_name: str | None = None
+    film_time: int | None = None
+    cinema_link: str | None = None
 

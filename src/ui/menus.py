@@ -1,4 +1,4 @@
-from services import film_service, schedule_service
+from services import film_service, schedule_service, auth
 
 
 def admin_menu(user):
@@ -8,6 +8,8 @@ def admin_menu(user):
         print("2. Посмотреть все фильмы")
         print("3. Добавить сеанс в расписание")
         print("4. Посмотреть все сеансы")
+        if user.userrole_id == 1:
+            print("5. Зарегистрировать администратора кинотеатра")
         print("0. Выйти из аккаунта")
         choice = input("Выберите действие: ")
 
@@ -34,7 +36,7 @@ def admin_menu(user):
             try:
                 film_id = int(input("ID фильма: "))
                 cinema_id = int(input("ID кинотеатра: "))
-                date_str = input("Дата и время (ГГГГ-ММ-ДД ЧЧ:ММ): ")
+                date_str = input("Дата и время (ГГГГ-ММ-ДД ЧЧ:ММ): ").strip()
 
                 # Конвертация строки в datetime
                 import datetime
@@ -42,8 +44,8 @@ def admin_menu(user):
 
                 schedule_service.create_schedule(date_time, film_id, cinema_id, user.user_id, user.userrole_id)
                 print("Сеанс успешно добавлен в расписание!")
-            except ValueError:
-                print("[ОШИБКА] Неверный формат ввода числа или даты.")
+            except ValueError as e:
+                print(f"[ОШИБКА] Неверный формат ввода числа или даты: {e}")
             except Exception as e:
                 print(f"[ОШИБКА] {e}")
 
@@ -51,7 +53,19 @@ def admin_menu(user):
             schedules = schedule_service.get_all_schedules()
             print("\n--- Расписание сеансов ---")
             for s in schedules:
-                print(f"{s.date_time} | Фильм: {s.film_name} | Зал: {s.cinema_name}")
+                link_info = f" | Ссылка: {s.cinema_link}" if s.cinema_link else ""
+                print(f"{s.date_time} | Фильм: {s.film_name} | Зал: {s.cinema_name}{link_info}")
+
+        elif choice == "5" and user.userrole_id == 1:
+            print("\n--- Регистрация администратора кинотеатра ---")
+            username = input("Имя администратора: ")
+            login_value = input("Логин: ")
+            password_value = input("Пароль: ")
+            try:
+                auth.register_cinema_admin(username, login_value, password_value)
+                print("\nАдминистратор кинотеатра успешно зарегистрирован!")
+            except Exception as e:
+                print(f"\n[ОШИБКА] {e}")
 
         elif choice == "0":
             print("Выход из аккаунта...")
